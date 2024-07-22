@@ -1,0 +1,108 @@
+---
+import { cities } from "../cities";
+const letters = [
+  "#",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <main class="container-fluid main">
+      <h1>Padron</h1>
+      <div>
+        <h4>Localidades</h4>
+        <div class="cities">
+          {
+            letters.map((letter) => {
+              let selectedCities = [];
+              if (letter === "#") {
+                selectedCities = cities.filter((city) => /^\d/.test(city));
+              } else {
+                selectedCities = cities.filter((city) =>
+                  city.startsWith(letter)
+                );
+              }
+              return (
+                <div class="section">
+                  <h6>{letter}</h6>
+                  <div class="links">
+                    {selectedCities.map((city) => (
+                      <a href={`files/${city}.pdf`} download>
+                        {city}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+<style>
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .flex {
+    display: flex;
+    column-gap: 20px;
+    row-gap: 10px;
+    flex-wrap: wrap;
+  }
+  .cities {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  .section {
+    display: flex;
+    flex-direction: column;
+  }
+  .links {
+    display: flex;
+    flex-direction: column;
+
+    flex-wrap: wrap;
+  }
+</style>
